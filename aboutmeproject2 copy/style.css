@@ -202,16 +202,12 @@ body.in-music { background-color: var(--music-deep); }
     z-index: 1;
 }
 
-/* Added opacity transitions here for perfectly smooth video swapping */
-#scuba-blur-vid, #music-blur-vid, #scuba-clear-vid, #music-clear-vid {
+#scuba-blur-vid, #music-blur-vid {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: opacity 0.8s ease; 
-}
-
-#scuba-blur-vid, #music-blur-vid {
     filter: blur(25px) brightness(0.4);
+    transition: opacity 0.8s ease;
 }
 
 .scuba-mask-wrapper, .music-mask-wrapper {
@@ -224,6 +220,17 @@ body.in-music { background-color: var(--music-deep); }
     justify-content: center;
     mix-blend-mode: screen; 
     transition: transform 0.2s ease-out;
+}
+
+/* THE FIX: Re-added position: absolute so the video sits BEHIND the text properly */
+#scuba-clear-vid, #music-clear-vid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.8s ease; 
 }
 
 .ocean-header {
@@ -239,6 +246,7 @@ body.in-music { background-color: var(--music-deep); }
     color: white;      
     mix-blend-mode: multiply; 
     letter-spacing: 5px;
+    z-index: 10; /* Ensures text is always on top of the clear video */
 }
 
 .music-header {
@@ -255,6 +263,7 @@ body.in-music { background-color: var(--music-deep); }
     mix-blend-mode: multiply; 
     letter-spacing: 3px;
     text-align: center;
+    z-index: 10;
 }
 
 .ocean-content, .music-content {
@@ -342,7 +351,6 @@ body.in-music { background-color: var(--music-deep); }
     aspect-ratio: 16 / 9;
 }
 
-/* Explicit object-fit: cover for portrait videos to fill bounds beautifully */
 .video-card video {
     width: 100%;
     height: 100%;
@@ -443,10 +451,12 @@ body.in-music { background-color: var(--music-deep); }
     
     .hero h1 { font-size: 2.5rem; }
     
+    /* Force grids to single column on mobile */
     .bento-grid, .video-grid, .boracay-grid, .music-grid {
         grid-template-columns: 1fr;
     }
     
+    /* Remove vertical offset for music grid on small screens */
     .music-card:nth-child(even) {
         transform: translateY(0);
     }
