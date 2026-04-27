@@ -88,25 +88,25 @@ if (bgVideoElement) {
     setInterval(cycleHeroVideo, 5000); 
 }
 
-// --- 5. MUSIC DUAL-SYNC MASK CYCLER (SMOOTH FIX) ---
+// --- 5. MUSIC DUAL-SYNC MASK CYCLER ---
 const mBlurVid = document.getElementById('music-blur-vid');
 const mClearVid = document.getElementById('music-clear-vid');
 
 if (mBlurVid && mClearVid) {
+    // REMOVED the portrait video from the background cycle
     const musicSources = [
-        'musicvideos/VideoEditor_IMG_2123.mp4',
         'musicvideos/VideoEditor_20231012_201704.mp4',
         'musicvideos/VideoEditor_20251012_231226.mp4',
         'musicvideos/IMG_2046 (online-video-cutter.com).mp4'
     ];
+    
+    // Starts at index 1 because the HTML already plays index 0 natively
     let musicIdx = 1;
 
     function cycleMusicEffect() {
-        // 1. Fade out gracefully
         mBlurVid.style.opacity = 0.1;
         mClearVid.style.opacity = 0.1;
 
-        // 2. Wait for the fade out to finish, THEN switch the video
         setTimeout(() => {
             const nextPath = musicSources[musicIdx];
             mBlurVid.src = nextPath;
@@ -115,7 +115,6 @@ if (mBlurVid && mClearVid) {
             mBlurVid.load();
             mClearVid.load();
             
-            // 3. Give the browser a tiny moment to buffer the first frame, then play and fade in
             setTimeout(() => {
                 mBlurVid.play();
                 mClearVid.play();
@@ -124,7 +123,7 @@ if (mBlurVid && mClearVid) {
             }, 200);
 
             musicIdx = (musicIdx + 1) % musicSources.length;
-        }, 800); // Wait 0.8s matching the CSS transition time
+        }, 800); 
     }
     setInterval(cycleMusicEffect, 6000); 
 }
