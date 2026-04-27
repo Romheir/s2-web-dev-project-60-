@@ -1,0 +1,413 @@
+/* --- VARIABLES & BASE --- */
+:root {
+    --bg-color: #0b0b0b;
+    --accent-color: #00d4ff;
+    --text-color: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    
+    /* Atmosphere Colors */
+    --ocean-deep: #001219;
+    --ocean-mid: #005f73;
+    --music-deep: #0f0514; /* Very dark rich purple */
+    --music-glow: #9d4edd; /* Neon purple accent */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+    transition: background-color 1.2s ease;
+}
+
+body.in-ocean { background-color: var(--ocean-deep); }
+body.in-music { background-color: var(--music-deep); }
+
+/* --- HERO SECTION --- */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, #1a1a1a 0%, #0b0b0b 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    transition: opacity 1s ease-in-out;
+    filter: blur(15px) brightness(0.4);
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
+
+.hero h1 { font-size: 4rem; letter-spacing: -2px; }
+#typewriter { color: var(--accent-color); font-weight: bold; border-right: 2px solid var(--accent-color); }
+
+/* --- BENTO GRID CONTAINER --- */
+.container { 
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    padding: 4rem 10%; 
+}
+
+.container-inner { width: 100%; }
+
+.section-title {
+    margin-bottom: 3rem;
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: -2px;
+}
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-rows: 250px;
+    gap: 25px;
+}
+
+.tall { grid-row: span 1 !important; }
+
+/* --- CARDS & TEXT --- */
+.card { 
+    padding: 2.5rem; 
+    border-radius: 20px; 
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    cursor: pointer;
+}
+
+.card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
+.card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.8;
+    font-weight: 300;
+}
+
+.card:hover {
+    transform: scale(1.05) translateY(-10px);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+}
+
+.card.active { animation: borderPulse 4s infinite ease-in-out; }
+
+@keyframes borderPulse {
+    0% { border-color: rgba(255, 255, 255, 0.1); }
+    50% { border-color: rgba(0, 212, 255, 0.4); }
+    100% { border-color: rgba(255, 255, 255, 0.1); }
+}
+
+.instrument-box ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.instrument-box li {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.instrument-box li::before {
+    content: "•";
+    color: var(--accent-color);
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
+/* --- MASKING ZONES (SCUBA & MUSIC) --- */
+.scuba-zone, .music-zone {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+
+.scuba-bg-container, .music-bg-container {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+#scuba-blur-vid, #music-blur-vid {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(25px) brightness(0.4);
+    transition: opacity 0.8s ease;
+}
+
+.scuba-mask-wrapper, .music-mask-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    mix-blend-mode: screen; 
+    transition: transform 0.2s ease-out;
+}
+
+#scuba-clear-vid, #music-clear-vid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ocean-header {
+    font-size: 11rem;
+    font-weight: 900;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    background: black; 
+    color: white;      
+    mix-blend-mode: multiply; 
+    letter-spacing: 5px;
+}
+
+/* Specific styling for the Music Header to handle long text */
+.music-header {
+    font-size: 7.5rem; /* Slightly smaller to fit the long word */
+    font-weight: 900;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    background: black; 
+    color: white;      
+    mix-blend-mode: multiply; 
+    letter-spacing: 3px;
+    text-align: center;
+}
+
+.ocean-content, .music-content {
+    position: absolute;
+    bottom: 15%;
+    z-index: 5;
+    text-align: center;
+}
+
+.ocean-subtext, .music-subtext { 
+    font-size: 1.5rem; 
+    opacity: 0.6; 
+    letter-spacing: 2px;
+}
+
+/* --- STAGGERED REVEAL --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.bento-grid .card.reveal:nth-child(1) { transition-delay: 0.1s; }
+.bento-grid .card.reveal:nth-child(2) { transition-delay: 0.2s; }
+.bento-grid .card.reveal:nth-child(3) { transition-delay: 0.3s; }
+.bento-grid .card.reveal:nth-child(4) { transition-delay: 0.4s; }
+
+.ocean-subtext.reveal, .music-subtext.reveal { transition-delay: 0.2s; }
+
+/* Delay the gallery videos sequentially */
+.video-grid .video-card.reveal:nth-child(1) { transition-delay: 0.1s; }
+.video-grid .video-card.reveal:nth-child(2) { transition-delay: 0.2s; }
+.video-grid .video-card.reveal:nth-child(3) { transition-delay: 0.3s; }
+.video-grid .video-card.reveal:nth-child(4) { transition-delay: 0.4s; }
+
+.boracay-grid .video-card.reveal:nth-child(1) { transition-delay: 0.1s; }
+.boracay-grid .video-card.reveal:nth-child(2) { transition-delay: 0.3s; }
+
+/* Music Grid Staggered Reveal */
+.music-grid .music-card.reveal:nth-child(1) { transition-delay: 0.1s; }
+.music-grid .music-card.reveal:nth-child(2) { transition-delay: 0.3s; }
+.music-grid .music-card.reveal:nth-child(3) { transition-delay: 0.2s; }
+.music-grid .music-card.reveal:nth-child(4) { transition-delay: 0.4s; }
+
+/* --- GALLERIES (SCUBA & MUSIC) --- */
+.scuba-gallery, .music-gallery {
+    padding: 2rem 10% 8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gallery-headers {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.gallery-title {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.music-title { color: var(--music-glow); }
+
+.gallery-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Shared Video Card Styles */
+.video-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    aspect-ratio: 16 / 9;
+}
+
+.video-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #000;
+}
+
+.video-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0, 18, 25, 0.95));
+    color: var(--text-color);
+    font-weight: 700;
+    letter-spacing: 1px;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+}
+
+.video-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.2);
+    border-color: var(--accent-color);
+}
+
+.video-card:hover .video-overlay {
+    transform: translateY(0);
+}
+
+/* --- GRIDS --- */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 35px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.boracay-header {
+    margin: 8rem 0 3rem 0;
+    text-align: center;
+}
+
+.boracay-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); 
+    gap: 40px;
+    width: 100%;
+    max-width: 1400px; 
+}
+
+/* --- CREATIVE MUSIC GRID (STAGGERED RHYTHM) --- */
+.music-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+    padding-bottom: 4rem; /* Room for the offset */
+}
+
+/* Offset the even cards to create a 'Beat/Stagger' layout */
+.music-card:nth-child(even) {
+    transform: translateY(60px);
+}
+
+/* Enhanced Purplish Glow and Bigger Scale for Music */
+.music-card:hover {
+    transform: scale(1.08) translateY(-10px) !important;
+    box-shadow: 0 0 40px rgba(157, 78, 221, 0.5);
+    border-color: var(--music-glow);
+    z-index: 10; /* Brings the hovered card to the very front */
+}
+
+/* Specific overlay tint for music */
+.music-overlay {
+    background: linear-gradient(transparent, rgba(15, 5, 20, 0.95));
+    color: var(--music-glow);
+}
