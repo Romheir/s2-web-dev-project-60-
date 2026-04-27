@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romheir Pablo | Scuba Diving</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body id="main-body" class="in-ocean">
+
+    <nav class="navbar">
+        <div class="nav-logo">Romheir Pablo</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="scuba.html">Scuba</a></li>
+            <li><a href="music.html">Music</a></li>
+        </ul>
+    </nav>
+
+    <section class="scuba-zone" id="scuba">
+        <div class="scuba-bg-container">
+            <video id="scuba-blur-vid" autoplay muted loop playsinline>
+                <source src="scubavideos/VideoEditor_DSCF3074.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="scuba-mask-wrapper">
+            <video id="scuba-clear-vid" autoplay muted loop playsinline>
+                <source src="scubavideos/VideoEditor_DSCF3074.mp4" type="video/mp4">
+            </video>
+            <h2 class="ocean-header reveal">SCUBA DIVING</h2>
+        </div>
+
+        <div class="ocean-content">
+            <p class="ocean-subtext reveal">Exploring the deep blues of Boracay.</p>
+        </div>
+    </section>
+
+    <section class="scuba-gallery reveal">
+        <div class="gallery-headers">
+            <h3 class="gallery-title">My training in Scuba Diving</h3>
+            <p class="gallery-subtitle">Padi Open Water Diver Course | Padi Open Water Diver</p>
+        </div>
+        
+        <div class="video-grid">
+            <div class="video-card reveal">
+                <video controls loop muted>
+                    <source src="scubavideos/VideoEditor_DSCF3075.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">Skill Training</div>
+            </div>
+            <div class="video-card reveal">
+                <video controls loop muted>
+                    <source src="scubavideos/VideoEditor_DSCF3072.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">Pool Session</div>
+            </div>
+            <div class="video-card reveal">
+                <video controls loop muted>
+                    <source src="scubavideos/VideoEditor_DSCF3074.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">Gear Training</div>
+            </div>
+            <div class="video-card reveal">
+                <video controls loop muted>
+                    <source src="scubavideos/VideoEditor_DSCF3112.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">Advanced Drills</div>
+            </div>
+        </div>
+
+        <div class="boracay-header reveal">
+            <h3 class="gallery-title">Diving in Boracay</h3>
+        </div>
+
+        <div class="boracay-grid">
+            <div class="video-card reveal boracay-card">
+                <video controls loop muted>
+                    <source src="scubavideos/VideoEditor_VID_20230525_155442_00_079.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">Boracay Reef Dive</div>
+            </div>
+            <div class="video-card reveal boracay-card">
+                <video controls loop muted>
+                    <source src="scubavideos/VideoEditor_VID_20230525_152531_00_078.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">Open Water Descent</div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

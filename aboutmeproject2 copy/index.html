@@ -3,11 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Romheir Pablo | Portfolio</title>
+    <title>Romheir Pablo | Home</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body id="main-body">
+
+    <nav class="navbar">
+        <div class="nav-logo">Romheir Pablo</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="scuba.html">Scuba</a></li>
+            <li><a href="music.html">Music</a></li>
+        </ul>
+    </nav>
 
     <section class="hero">
         <video id="hero-bg-video" autoplay muted playsinline class="hero-bg"></video>
@@ -41,131 +50,6 @@
                     <h3>Athlete</h3>
                     <p>Scuba Diving & Advanced Badminton.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="scuba-zone" id="scuba">
-        <div class="scuba-bg-container">
-            <video id="scuba-blur-vid" autoplay muted loop playsinline>
-                <source src="scubavideos/VideoEditor_DSCF3074.mp4" type="video/mp4">
-            </video>
-        </div>
-
-        <div class="scuba-mask-wrapper">
-            <video id="scuba-clear-vid" autoplay muted loop playsinline>
-                <source src="scubavideos/VideoEditor_DSCF3074.mp4" type="video/mp4">
-            </video>
-            <h2 class="ocean-header reveal">SCUBA DIVING</h2>
-        </div>
-
-        <div class="ocean-content">
-            <p class="ocean-subtext reveal">Exploring the deep blues of Boracay.</p>
-        </div>
-    </section>
-
-    <section class="scuba-gallery reveal">
-        <div class="gallery-headers">
-            <h3 class="gallery-title">My training in Scuba Diving</h3>
-            <p class="gallery-subtitle">Padi Open Water Diver Course | Padi Open Water Diver</p>
-        </div>
-        
-        <div class="video-grid">
-            <div class="video-card reveal">
-                <video controls loop muted>
-                    <source src="scubavideos/VideoEditor_DSCF3075.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay">Skill Training</div>
-            </div>
-            <div class="video-card reveal">
-                <video controls loop muted>
-                    <source src="scubavideos/VideoEditor_DSCF3072.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay">Pool Session</div>
-            </div>
-            <div class="video-card reveal">
-                <video controls loop muted>
-                    <source src="scubavideos/VideoEditor_DSCF3074.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay">Gear Training</div>
-            </div>
-            <div class="video-card reveal">
-                <video controls loop muted>
-                    <source src="scubavideos/VideoEditor_DSCF3112.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay">Advanced Drills</div>
-            </div>
-        </div>
-
-        <div class="boracay-header reveal">
-            <h3 class="gallery-title">Diving in Boracay</h3>
-        </div>
-
-        <div class="boracay-grid">
-            <div class="video-card reveal boracay-card">
-                <video controls loop muted>
-                    <source src="scubavideos/VideoEditor_VID_20230525_155442_00_079.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay">Boracay Reef Dive</div>
-            </div>
-            <div class="video-card reveal boracay-card">
-                <video controls loop muted>
-                    <source src="scubavideos/VideoEditor_VID_20230525_152531_00_078.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay">Open Water Descent</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="music-zone" id="music">
-        <div class="music-bg-container">
-            <video id="music-blur-vid" autoplay muted loop playsinline>
-                <source src="musicvideos/VideoEditor_IMG_2123.mp4" type="video/mp4">
-            </video>
-        </div>
-
-        <div class="music-mask-wrapper">
-            <video id="music-clear-vid" autoplay muted loop playsinline>
-                <source src="musicvideos/VideoEditor_IMG_2123.mp4" type="video/mp4">
-            </video>
-            <h2 class="music-header reveal">MULTI-INSTRUMENTALIST</h2>
-        </div>
-
-        <div class="music-content">
-            <p class="music-subtext reveal">Rhythm, Melody, and Harmony.</p>
-        </div>
-    </section>
-
-    <section class="music-gallery reveal">
-        <div class="gallery-headers">
-            <h3 class="gallery-title music-title">My Musical Journey</h3>
-            <p class="gallery-subtitle">Piano | Drums | Guitar | The Band</p>
-        </div>
-        
-        <div class="music-grid">
-            <div class="video-card music-card reveal">
-                <video controls loop muted>
-                    <source src="musicvideos/VideoEditor_IMG_2123.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay music-overlay">Playing the Piano</div>
-            </div>
-            <div class="video-card music-card reveal">
-                <video controls loop muted>
-                    <source src="musicvideos/VideoEditor_20231012_201704.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay music-overlay">Playing the Drums</div>
-            </div>
-            <div class="video-card music-card reveal">
-                <video controls loop muted>
-                    <source src="musicvideos/VideoEditor_20251012_231226.mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay music-overlay">Playing Guitar</div>
-            </div>
-            <div class="video-card music-card reveal">
-                <video controls loop muted>
-                    <source src="musicvideos/IMG_2046 (online-video-cutter.com).mp4" type="video/mp4">
-                </video>
-                <div class="video-overlay music-overlay">The Band</div>
             </div>
         </div>
     </section>

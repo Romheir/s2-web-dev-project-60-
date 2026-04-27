@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romheir Pablo | Music</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body id="main-body" class="in-music">
+
+    <nav class="navbar">
+        <div class="nav-logo">Romheir Pablo</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="scuba.html">Scuba</a></li>
+            <li><a href="music.html">Music</a></li>
+        </ul>
+    </nav>
+
+    <section class="music-zone" id="music">
+        <div class="music-bg-container">
+            <video id="music-blur-vid" autoplay muted loop playsinline>
+                <source src="musicvideos/VideoEditor_IMG_2123.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="music-mask-wrapper">
+            <video id="music-clear-vid" autoplay muted loop playsinline>
+                <source src="musicvideos/VideoEditor_IMG_2123.mp4" type="video/mp4">
+            </video>
+            <h2 class="music-header reveal">MULTI-INSTRUMENTALIST</h2>
+        </div>
+
+        <div class="music-content">
+            <p class="music-subtext reveal">Rhythm, Melody, and Harmony.</p>
+        </div>
+    </section>
+
+    <section class="music-gallery reveal">
+        <div class="gallery-headers">
+            <h3 class="gallery-title music-title">My Musical Journey</h3>
+            <p class="gallery-subtitle">Piano | Drums | Guitar | The Band</p>
+        </div>
+        
+        <div class="music-grid">
+            <div class="video-card music-card reveal">
+                <video controls loop muted>
+                    <source src="musicvideos/VideoEditor_IMG_2123.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay music-overlay">Playing the Piano</div>
+            </div>
+            <div class="video-card music-card reveal">
+                <video controls loop muted>
+                    <source src="musicvideos/VideoEditor_20231012_201704.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay music-overlay">Playing the Drums</div>
+            </div>
+            <div class="video-card music-card reveal">
+                <video controls loop muted>
+                    <source src="musicvideos/VideoEditor_20251012_231226.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay music-overlay">Playing Guitar</div>
+            </div>
+            <div class="video-card music-card reveal">
+                <video controls loop muted>
+                    <source src="musicvideos/IMG_2046 (online-video-cutter.com).mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay music-overlay">The Band</div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

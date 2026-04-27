@@ -9,8 +9,8 @@
     /* Atmosphere Colors */
     --ocean-deep: #001219;
     --ocean-mid: #005f73;
-    --music-deep: #0f0514; /* Very dark rich purple */
-    --music-glow: #9d4edd; /* Neon purple accent */
+    --music-deep: #0f0514; 
+    --music-glow: #9d4edd; 
 }
 
 * {
@@ -29,6 +29,26 @@ body {
 
 body.in-ocean { background-color: var(--ocean-deep); }
 body.in-music { background-color: var(--music-deep); }
+
+/* --- NAVIGATION BAR --- */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1.5rem 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(11, 11, 11, 0.7);
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.nav-logo { font-weight: 700; font-size: 1.5rem; color: var(--accent-color); }
+.nav-links { list-style: none; display: flex; gap: 30px; }
+.nav-links a { text-decoration: none; color: white; font-weight: 400; transition: 0.3s; }
+.nav-links a:hover { color: var(--accent-color); }
 
 /* --- HERO SECTION --- */
 .hero {
@@ -74,7 +94,7 @@ body.in-music { background-color: var(--music-deep); }
     display: flex;
     flex-direction: column;
     justify-content: center; 
-    padding: 4rem 10%; 
+    padding: 8rem 10% 4rem 10%; 
 }
 
 .container-inner { width: 100%; }
@@ -182,12 +202,16 @@ body.in-music { background-color: var(--music-deep); }
     z-index: 1;
 }
 
-#scuba-blur-vid, #music-blur-vid {
+/* Added opacity transitions here for perfectly smooth video swapping */
+#scuba-blur-vid, #music-blur-vid, #scuba-clear-vid, #music-clear-vid {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: opacity 0.8s ease; 
+}
+
+#scuba-blur-vid, #music-blur-vid {
     filter: blur(25px) brightness(0.4);
-    transition: opacity 0.8s ease;
 }
 
 .scuba-mask-wrapper, .music-mask-wrapper {
@@ -200,13 +224,6 @@ body.in-music { background-color: var(--music-deep); }
     justify-content: center;
     mix-blend-mode: screen; 
     transition: transform 0.2s ease-out;
-}
-
-#scuba-clear-vid, #music-clear-vid {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 .ocean-header {
@@ -224,9 +241,8 @@ body.in-music { background-color: var(--music-deep); }
     letter-spacing: 5px;
 }
 
-/* Specific styling for the Music Header to handle long text */
 .music-header {
-    font-size: 7.5rem; /* Slightly smaller to fit the long word */
+    font-size: 7.5rem; 
     font-weight: 900;
     width: 100%;
     height: 100%;
@@ -273,7 +289,6 @@ body.in-music { background-color: var(--music-deep); }
 
 .ocean-subtext.reveal, .music-subtext.reveal { transition-delay: 0.2s; }
 
-/* Delay the gallery videos sequentially */
 .video-grid .video-card.reveal:nth-child(1) { transition-delay: 0.1s; }
 .video-grid .video-card.reveal:nth-child(2) { transition-delay: 0.2s; }
 .video-grid .video-card.reveal:nth-child(3) { transition-delay: 0.3s; }
@@ -282,15 +297,14 @@ body.in-music { background-color: var(--music-deep); }
 .boracay-grid .video-card.reveal:nth-child(1) { transition-delay: 0.1s; }
 .boracay-grid .video-card.reveal:nth-child(2) { transition-delay: 0.3s; }
 
-/* Music Grid Staggered Reveal */
 .music-grid .music-card.reveal:nth-child(1) { transition-delay: 0.1s; }
 .music-grid .music-card.reveal:nth-child(2) { transition-delay: 0.3s; }
 .music-grid .music-card.reveal:nth-child(3) { transition-delay: 0.2s; }
 .music-grid .music-card.reveal:nth-child(4) { transition-delay: 0.4s; }
 
-/* --- GALLERIES (SCUBA & MUSIC) --- */
+/* --- GALLERIES --- */
 .scuba-gallery, .music-gallery {
-    padding: 2rem 10% 8rem;
+    padding: 5rem 10% 8rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -317,7 +331,6 @@ body.in-music { background-color: var(--music-deep); }
     text-transform: uppercase;
 }
 
-/* Shared Video Card Styles */
 .video-card {
     position: relative;
     border-radius: 20px;
@@ -329,6 +342,7 @@ body.in-music { background-color: var(--music-deep); }
     aspect-ratio: 16 / 9;
 }
 
+/* Explicit object-fit: cover for portrait videos to fill bounds beautifully */
 .video-card video {
     width: 100%;
     height: 100%;
@@ -383,31 +397,60 @@ body.in-music { background-color: var(--music-deep); }
     max-width: 1400px; 
 }
 
-/* --- CREATIVE MUSIC GRID (STAGGERED RHYTHM) --- */
 .music-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     gap: 40px;
     width: 100%;
     max-width: 1200px;
-    padding-bottom: 4rem; /* Room for the offset */
+    padding-bottom: 4rem; 
 }
 
-/* Offset the even cards to create a 'Beat/Stagger' layout */
 .music-card:nth-child(even) {
     transform: translateY(60px);
 }
 
-/* Enhanced Purplish Glow and Bigger Scale for Music */
 .music-card:hover {
     transform: scale(1.08) translateY(-10px) !important;
     box-shadow: 0 0 40px rgba(157, 78, 221, 0.5);
     border-color: var(--music-glow);
-    z-index: 10; /* Brings the hovered card to the very front */
+    z-index: 10; 
 }
 
-/* Specific overlay tint for music */
 .music-overlay {
     background: linear-gradient(transparent, rgba(15, 5, 20, 0.95));
     color: var(--music-glow);
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN (HOLIDAE REQUIREMENT) 
+   ======================================================== */
+
+@media (max-width: 1024px) {
+    .ocean-header { font-size: 7rem; }
+    .music-header { font-size: 5rem; }
+    .section-title { font-size: 2.5rem; }
+    
+    .boracay-grid, .music-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar { padding: 1rem 5%; }
+    .nav-logo { font-size: 1.2rem; }
+    .nav-links { gap: 15px; font-size: 0.9rem; }
+    
+    .hero h1 { font-size: 2.5rem; }
+    
+    .bento-grid, .video-grid, .boracay-grid, .music-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .music-card:nth-child(even) {
+        transform: translateY(0);
+    }
+
+    .ocean-header { font-size: 3.5rem; letter-spacing: 2px; }
+    .music-header { font-size: 2.5rem; letter-spacing: 1px; }
 }
