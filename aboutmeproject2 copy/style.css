@@ -11,6 +11,8 @@
     --ocean-mid: #005f73;
     --music-deep: #0f0514; 
     --music-glow: #9d4edd; 
+    --badminton-deep: #141000; /* Dark Golden Bronze */
+    --badminton-glow: #ffc107; /* Golden Accent */
 }
 
 * {
@@ -29,6 +31,7 @@ body {
 
 body.in-ocean { background-color: var(--ocean-deep); }
 body.in-music { background-color: var(--music-deep); }
+body.in-badminton { background-color: var(--badminton-deep); }
 
 /* --- NAVIGATION BAR --- */
 .navbar {
@@ -130,19 +133,8 @@ body.in-music { background-color: var(--music-deep); }
     cursor: pointer;
 }
 
-.card h3 {
-    font-size: 1.4rem;
-    margin-bottom: 0.8rem;
-    color: var(--accent-color);
-    font-weight: 700;
-}
-
-.card p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    opacity: 0.8;
-    font-weight: 300;
-}
+.card h3 { font-size: 1.4rem; margin-bottom: 0.8rem; color: var(--accent-color); font-weight: 700; }
+.card p { font-size: 0.95rem; line-height: 1.6; opacity: 0.8; font-weight: 300; }
 
 .card:hover {
     transform: scale(1.05) translateY(-10px);
@@ -158,32 +150,12 @@ body.in-music { background-color: var(--music-deep); }
     100% { border-color: rgba(255, 255, 255, 0.1); }
 }
 
-.instrument-box ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
+.instrument-box ul { list-style: none; padding: 0; margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+.instrument-box li { font-size: 0.95rem; opacity: 0.8; display: flex; justify-content: center; align-items: center; }
+.instrument-box li::before { content: "•"; color: var(--accent-color); margin-right: 8px; font-size: 1.2rem; }
 
-.instrument-box li {
-    font-size: 0.95rem;
-    opacity: 0.8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.instrument-box li::before {
-    content: "•";
-    color: var(--accent-color);
-    margin-right: 8px;
-    font-size: 1.2rem;
-}
-
-/* --- MASKING ZONES (SCUBA & MUSIC) --- */
-.scuba-zone, .music-zone {
+/* --- MASKING ZONES (SCUBA, MUSIC, BADMINTON) --- */
+.scuba-zone, .music-zone, .badminton-zone {
     position: relative;
     height: 100vh;
     width: 100%;
@@ -196,21 +168,25 @@ body.in-music { background-color: var(--music-deep); }
     mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
-.scuba-bg-container, .music-bg-container {
+.scuba-bg-container, .music-bg-container, .badminton-bg-container {
     position: absolute;
     inset: 0;
     z-index: 1;
 }
 
-#scuba-blur-vid, #music-blur-vid {
+#scuba-blur-vid, #music-blur-vid, #badminton-blur-vid, 
+#scuba-clear-vid, #music-clear-vid, #badminton-clear-vid {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: blur(25px) brightness(0.4);
-    transition: opacity 0.8s ease;
+    transition: opacity 0.8s ease; 
 }
 
-.scuba-mask-wrapper, .music-mask-wrapper {
+#scuba-blur-vid, #music-blur-vid, #badminton-blur-vid {
+    filter: blur(25px) brightness(0.4);
+}
+
+.scuba-mask-wrapper, .music-mask-wrapper, .badminton-mask-wrapper {
     position: relative;
     z-index: 2;
     width: 100%;
@@ -222,19 +198,13 @@ body.in-music { background-color: var(--music-deep); }
     transition: transform 0.2s ease-out;
 }
 
-/* THE FIX: Re-added position: absolute so the video sits BEHIND the text properly */
-#scuba-clear-vid, #music-clear-vid {
+#scuba-clear-vid, #music-clear-vid, #badminton-clear-vid {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: opacity 0.8s ease; 
 }
 
-.ocean-header {
-    font-size: 11rem;
+.ocean-header, .music-header, .badminton-header {
     font-weight: 900;
     width: 100%;
     height: 100%;
@@ -245,58 +215,27 @@ body.in-music { background-color: var(--music-deep); }
     background: black; 
     color: white;      
     mix-blend-mode: multiply; 
-    letter-spacing: 5px;
-    z-index: 10; /* Ensures text is always on top of the clear video */
-}
-
-.music-header {
-    font-size: 7.5rem; 
-    font-weight: 900;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    background: black; 
-    color: white;      
-    mix-blend-mode: multiply; 
-    letter-spacing: 3px;
     text-align: center;
-    z-index: 10;
+    z-index: 10; 
 }
 
-.ocean-content, .music-content {
-    position: absolute;
-    bottom: 15%;
-    z-index: 5;
-    text-align: center;
-}
+.ocean-header { font-size: 11rem; letter-spacing: 5px; }
+.music-header { font-size: 7.5rem; letter-spacing: 3px; }
+.badminton-header { font-size: 6.5rem; letter-spacing: 3px; }
 
-.ocean-subtext, .music-subtext { 
-    font-size: 1.5rem; 
-    opacity: 0.6; 
-    letter-spacing: 2px;
-}
+.ocean-content, .music-content, .badminton-content { position: absolute; bottom: 15%; z-index: 5; text-align: center; }
+.ocean-subtext, .music-subtext, .badminton-subtext { font-size: 1.5rem; opacity: 0.6; letter-spacing: 2px; }
 
 /* --- STAGGERED REVEAL --- */
-.reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-}
+.reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1); }
+.reveal.active { opacity: 1; transform: translateY(0); }
 
 .bento-grid .card.reveal:nth-child(1) { transition-delay: 0.1s; }
 .bento-grid .card.reveal:nth-child(2) { transition-delay: 0.2s; }
 .bento-grid .card.reveal:nth-child(3) { transition-delay: 0.3s; }
 .bento-grid .card.reveal:nth-child(4) { transition-delay: 0.4s; }
 
-.ocean-subtext.reveal, .music-subtext.reveal { transition-delay: 0.2s; }
+.ocean-subtext.reveal, .music-subtext.reveal, .badminton-subtext.reveal { transition-delay: 0.2s; }
 
 .video-grid .video-card.reveal:nth-child(1) { transition-delay: 0.1s; }
 .video-grid .video-card.reveal:nth-child(2) { transition-delay: 0.2s; }
@@ -312,33 +251,19 @@ body.in-music { background-color: var(--music-deep); }
 .music-grid .music-card.reveal:nth-child(4) { transition-delay: 0.4s; }
 
 /* --- GALLERIES --- */
-.scuba-gallery, .music-gallery {
+.scuba-gallery, .music-gallery, .badminton-gallery {
     padding: 5rem 10% 8rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.gallery-headers {
-    text-align: center;
-    margin-bottom: 4rem;
-}
-
-.gallery-title {
-    font-size: 2.5rem;
-    color: var(--accent-color);
-    margin-bottom: 15px;
-    font-weight: 700;
-}
+.gallery-headers { text-align: center; margin-bottom: 4rem; }
+.gallery-title { font-size: 2.5rem; color: var(--accent-color); margin-bottom: 15px; font-weight: 700; }
+.gallery-subtitle { font-size: 1.2rem; opacity: 0.8; letter-spacing: 2px; text-transform: uppercase; }
 
 .music-title { color: var(--music-glow); }
-
-.gallery-subtitle {
-    font-size: 1.2rem;
-    opacity: 0.8;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
+.badminton-title { color: var(--badminton-glow); }
 
 .video-card {
     position: relative;
@@ -351,12 +276,7 @@ body.in-music { background-color: var(--music-deep); }
     aspect-ratio: 16 / 9;
 }
 
-.video-card video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    background-color: #000;
-}
+.video-card video { width: 100%; height: 100%; object-fit: cover; background-color: #000; }
 
 .video-overlay {
     position: absolute;
@@ -379,9 +299,7 @@ body.in-music { background-color: var(--music-deep); }
     border-color: var(--accent-color);
 }
 
-.video-card:hover .video-overlay {
-    transform: translateY(0);
-}
+.video-card:hover .video-overlay { transform: translateY(0); }
 
 /* --- GRIDS --- */
 .video-grid {
@@ -392,11 +310,7 @@ body.in-music { background-color: var(--music-deep); }
     max-width: 1200px;
 }
 
-.boracay-header {
-    margin: 8rem 0 3rem 0;
-    text-align: center;
-}
-
+.boracay-header { margin: 8rem 0 3rem 0; text-align: center; }
 .boracay-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); 
@@ -414,9 +328,7 @@ body.in-music { background-color: var(--music-deep); }
     padding-bottom: 4rem; 
 }
 
-.music-card:nth-child(even) {
-    transform: translateY(60px);
-}
+.music-card:nth-child(even) { transform: translateY(60px); }
 
 .music-card:hover {
     transform: scale(1.08) translateY(-10px) !important;
@@ -430,6 +342,16 @@ body.in-music { background-color: var(--music-deep); }
     color: var(--music-glow);
 }
 
+/* Badminton Glow */
+.badminton-card:hover {
+    box-shadow: 0 0 40px rgba(255, 193, 7, 0.3);
+    border-color: var(--badminton-glow);
+}
+.badminton-overlay {
+    background: linear-gradient(transparent, rgba(20, 16, 0, 0.95));
+    color: var(--badminton-glow);
+}
+
 /* ========================================================
    RESPONSIVE DESIGN (HOLIDAE REQUIREMENT) 
    ======================================================== */
@@ -437,6 +359,7 @@ body.in-music { background-color: var(--music-deep); }
 @media (max-width: 1024px) {
     .ocean-header { font-size: 7rem; }
     .music-header { font-size: 5rem; }
+    .badminton-header { font-size: 4.5rem; }
     .section-title { font-size: 2.5rem; }
     
     .boracay-grid, .music-grid {
@@ -447,20 +370,17 @@ body.in-music { background-color: var(--music-deep); }
 @media (max-width: 768px) {
     .navbar { padding: 1rem 5%; }
     .nav-logo { font-size: 1.2rem; }
-    .nav-links { gap: 15px; font-size: 0.9rem; }
+    .nav-links { gap: 10px; font-size: 0.8rem; } /* Shrunk gap slightly to fit 4 links */
     
     .hero h1 { font-size: 2.5rem; }
     
-    /* Force grids to single column on mobile */
     .bento-grid, .video-grid, .boracay-grid, .music-grid {
         grid-template-columns: 1fr;
     }
     
-    /* Remove vertical offset for music grid on small screens */
-    .music-card:nth-child(even) {
-        transform: translateY(0);
-    }
+    .music-card:nth-child(even) { transform: translateY(0); }
 
     .ocean-header { font-size: 3.5rem; letter-spacing: 2px; }
     .music-header { font-size: 2.5rem; letter-spacing: 1px; }
+    .badminton-header { font-size: 2.2rem; letter-spacing: 1px; }
 }

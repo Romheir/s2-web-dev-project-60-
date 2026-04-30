@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romheir Pablo | Badminton</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body id="main-body" class="in-badminton">
+
+    <nav class="navbar">
+        <div class="nav-logo">Romheir Pablo</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="scuba.html">Scuba</a></li>
+            <li><a href="music.html">Music</a></li>
+            <li><a href="badminton.html">Badminton</a></li>
+        </ul>
+    </nav>
+
+    <section class="badminton-zone" id="badminton">
+        <div class="badminton-bg-container">
+            <video id="badminton-blur-vid" autoplay muted loop playsinline>
+                <source src="badmintonvideos/IMG_8233.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="badminton-mask-wrapper">
+            <video id="badminton-clear-vid" autoplay muted loop playsinline>
+                <source src="badmintonvideos/IMG_8233.mp4" type="video/mp4">
+            </video>
+            <h2 class="badminton-header reveal">ADVANCED BADMINTON</h2>
+        </div>
+
+        <div class="badminton-content">
+            <p class="badminton-subtext reveal">Agility, Speed, and Precision.</p>
+        </div>
+    </section>
+
+    <section class="badminton-gallery reveal">
+        <div class="gallery-headers">
+            <h3 class="gallery-title badminton-title">Court Action</h3>
+            <p class="gallery-subtitle">Singles & Doubles | Drills & Smashes</p>
+        </div>
+        
+        <div class="video-grid">
+            <div class="video-card badminton-card reveal">
+                <video controls loop muted>
+                    <source src="badmintonvideos/IMG_8233.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay badminton-overlay">Warmup Drills</div>
+            </div>
+            <div class="video-card badminton-card reveal">
+                <video controls loop muted>
+                    <source src="badmintonvideos/IMG_8432.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay badminton-overlay">Doubles Match</div>
+            </div>
+            <div class="video-card badminton-card reveal">
+                <video controls loop muted>
+                    <source src="badmintonvideos/IMG_2941.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay badminton-overlay">The Smash</div>
+            </div>
+            <div class="video-card badminton-card reveal">
+                <video controls loop muted>
+                    <source src="badmintonvideos/IMG_8436.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay badminton-overlay">Rally Point</div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
