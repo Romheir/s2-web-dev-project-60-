@@ -67,126 +67,103 @@ const initColorShift = () => {
     });
 };
 
-// --- 4. HERO BACKGROUND CYCLER ---
-const bgVideoElement = document.getElementById('hero-bg-video');
-if (bgVideoElement) {
-    const heroVideoSources = [
-        'scubavideos/VideoEditor_DSCF3074.mp4', 
-        'videos/drumming.mp4',      
-        'videos/guitar.mp4',        
-        'videos/singing.mp4'
-    ];
-    let heroIdx = 1;
-
-    function cycleHeroVideo() {
-        bgVideoElement.src = heroVideoSources[heroIdx];
-        bgVideoElement.load();
-        bgVideoElement.play();
-        heroIdx = (heroIdx + 1) % heroVideoSources.length;
-    }
-    setInterval(cycleHeroVideo, 6000); 
-}
-
-// --- 5. SCUBA DUAL-SYNC MASK CYCLER ---
-const sBlurVid = document.getElementById('scuba-blur-vid');
-const sClearVid = document.getElementById('scuba-clear-vid');
-
-if (sBlurVid && sClearVid) {
-    const scubaSources = [
-        'scubavideos/VideoEditor_DSCF3074.mp4',
-        'scubavideos/VideoEditor_DSCF3075.mp4',
-        'scubavideos/VideoEditor_DSCF3072.mp4',
-        'scubavideos/VideoEditor_DSCF3112.mp4'
-    ];
-    let scubaIdx = 1; 
-
-    function cycleScubaEffect() {
-        sBlurVid.src = scubaSources[scubaIdx];
-        sClearVid.src = scubaSources[scubaIdx];
-        
-        sBlurVid.load();
-        sClearVid.load();
-        sBlurVid.play();
-        sClearVid.play();
-
-        scubaIdx = (scubaIdx + 1) % scubaSources.length;
-    }
-    setInterval(cycleScubaEffect, 6000); 
-}
-
-// --- 6. MUSIC DUAL-SYNC MASK CYCLER ---
-const mBlurVid = document.getElementById('music-blur-vid');
-const mClearVid = document.getElementById('music-clear-vid');
-
-if (mBlurVid && mClearVid) {
-    const musicSources = [
-        'musicvideos/VideoEditor_IMG_2123.mp4',
-        'musicvideos/VideoEditor_20231012_201704.mp4',
-        'musicvideos/IMG_2046 (online-video-cutter.com).mp4'
-    ];
-    let musicIdx = 1; 
-
-    function cycleMusicEffect() {
-        mBlurVid.src = musicSources[musicIdx];
-        mClearVid.src = musicSources[musicIdx];
-
-        mBlurVid.load();
-        mClearVid.load();
-        mBlurVid.play();
-        mClearVid.play();
-
-        musicIdx = (musicIdx + 1) % musicSources.length;
-    }
-    setInterval(cycleMusicEffect, 6000); 
-}
-
-// --- 7. BADMINTON DUAL-SYNC MASK CYCLER ---
-const bBlurVid = document.getElementById('badminton-blur-vid');
-const bClearVid = document.getElementById('badminton-clear-vid');
-
-if (bBlurVid && bClearVid) {
-    // FIXED: These now perfectly match the files in your VS Code folder
-    const badmintonSources = [
-        'badmintonvideos/IMG_8233.mp4',
-        'badmintonvideos/IMG_4253.mp4',
-        'badmintonvideos/IMG_4256.mp4',
-        'badmintonvideos/VideoEditor_IMG_8436 (1).mp4'
-    ];
-    let badmintonIdx = 1; 
-
-    function cycleBadmintonEffect() {
-        bBlurVid.src = badmintonSources[badmintonIdx];
-        bClearVid.src = badmintonSources[badmintonIdx];
-
-        bBlurVid.load();
-        bClearVid.load();
-        bBlurVid.play();
-        bClearVid.play();
-
-        badmintonIdx = (badmintonIdx + 1) % badmintonSources.length;
-    }
-    setInterval(cycleBadmintonEffect, 6000); 
-}
-
-// --- 8. PARALLAX MOUSE EFFECT ---
-const handleMouseMove = (e) => {
-    const amount = 20; 
-    const x = (e.clientX / window.innerWidth - 0.5) * amount;
-    const y = (e.clientY / window.innerHeight - 0.5) * amount;
+// --- 4. UNIVERSAL CINEMATIC CROSSFADE ENGINE ---
+function setupCrossfade(sourcesArray, blurPrefix, clearPrefix = null) {
+    const bVid1 = document.getElementById(`${blurPrefix}-1`);
+    const bVid2 = document.getElementById(`${blurPrefix}-2`);
     
-    // Grabs all 3 wrappers and applies the depth shift
-    const masks = document.querySelectorAll('.scuba-mask-wrapper, .music-mask-wrapper, .badminton-mask-wrapper');
-    masks.forEach(mask => {
-        mask.style.transform = `translate(${x}px, ${y}px)`;
-    });
-};
+    if (!bVid1 || !bVid2) return; 
 
-// --- 9. INITIALIZATION ---
+    let cVid1 = null, cVid2 = null;
+    if (clearPrefix) {
+        cVid1 = document.getElementById(`${clearPrefix}-1`);
+        cVid2 = document.getElementById(`${clearPrefix}-2`);
+    }
+
+    let currentIdx = 1; 
+    let activePlayer = 1; 
+
+    setInterval(() => {
+        const nextSource = sourcesArray[currentIdx];
+
+        const hiddenBlur = activePlayer === 1 ? bVid2 : bVid1;
+        const visibleBlur = activePlayer === 1 ? bVid1 : bVid2;
+
+        hiddenBlur.src = nextSource;
+        hiddenBlur.load();
+        hiddenBlur.play().catch(e => console.log("Autoplay blocked:", e));
+
+        let hiddenClear = null, visibleClear = null;
+        if (clearPrefix && cVid1 && cVid2) {
+            hiddenClear = activePlayer === 1 ? cVid2 : cVid1;
+            visibleClear = activePlayer === 1 ? cVid1 : cVid2;
+            hiddenClear.src = nextSource;
+            hiddenClear.load();
+            hiddenClear.play().catch(e => console.log("Autoplay blocked:", e));
+        }
+
+        setTimeout(() => {
+            visibleBlur.classList.remove('active-vid');
+            hiddenBlur.classList.add('active-vid');
+
+            if (clearPrefix && visibleClear && hiddenClear) {
+                visibleClear.classList.remove('active-vid');
+                hiddenClear.classList.add('active-vid');
+            }
+
+            activePlayer = activePlayer === 1 ? 2 : 1;
+            currentIdx = (currentIdx + 1) % sourcesArray.length;
+        }, 200); 
+
+    }, 6000); 
+}
+
+// --- 5. INITIALIZE THE CROSSFADES FOR ALL PAGES ---
 document.addEventListener('DOMContentLoaded', () => {
     initColorShift(); 
-    document.addEventListener('mousemove', handleMouseMove);
+    
+    document.addEventListener('mousemove', (e) => {
+        const amount = 20; 
+        const x = (e.clientX / window.innerWidth - 0.5) * amount;
+        const y = (e.clientY / window.innerHeight - 0.5) * amount;
+        const masks = document.querySelectorAll('.scuba-mask-wrapper, .music-mask-wrapper, .badminton-mask-wrapper');
+        masks.forEach(mask => {
+            mask.style.transform = `translate(${x}px, ${y}px)`;
+        });
+    });
 
     document.querySelectorAll('.reveal').forEach(el => {
         revealObserver.observe(el);
     });
+
+    // 1. Home Page Hero Fade (NOW A PORTFOLIO MIX!)
+    setupCrossfade([
+        'scubavideos/VideoEditor_DSCF3074.mp4',             // 1. Scuba Diving
+        'musicvideos/VideoEditor_20231012_201704.mp4',      // 2. Music (Drums)
+        'badmintonvideos/IMG_8233.mp4',                     // 3. Badminton
+        'scubavideos/VideoEditor_VID_20230525_155442_00_079.mp4' // 4. Boracay Adventure
+    ], 'hero-bg-vid');
+
+    // 2. Scuba Page Fade
+    setupCrossfade([
+        'scubavideos/VideoEditor_DSCF3074.mp4',
+        'scubavideos/VideoEditor_DSCF3075.mp4',
+        'scubavideos/VideoEditor_DSCF3072.mp4',
+        'scubavideos/VideoEditor_DSCF3112.mp4'
+    ], 'scuba-blur-vid', 'scuba-clear-vid');
+
+    // 3. Music Page Fade
+    setupCrossfade([
+        'musicvideos/VideoEditor_IMG_2123.mp4',
+        'musicvideos/VideoEditor_20231012_201704.mp4',
+        'musicvideos/IMG_2046 (online-video-cutter.com).mp4'
+    ], 'music-blur-vid', 'music-clear-vid');
+
+    // 4. Badminton Page Fade
+    setupCrossfade([
+        'badmintonvideos/IMG_8233.mp4',
+        'badmintonvideos/IMG_4253.mp4',
+        'badmintonvideos/IMG_4256.mp4',
+        'badmintonvideos/VideoEditor_IMG_8436 (1).mp4'
+    ], 'badminton-blur-vid', 'badminton-clear-vid');
 });

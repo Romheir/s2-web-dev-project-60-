@@ -9,7 +9,6 @@
 </head>
 <body id="main-body">
 
-   <!-- UPDATED NAVIGATION BAR (Apply to all files) -->
     <nav class="navbar">
         <div class="nav-logo">Romheir Pablo</div>
         <ul class="nav-links">
@@ -21,7 +20,12 @@
     </nav>
 
     <section class="hero">
-        <video id="hero-bg-video" autoplay muted playsinline class="hero-bg"></video>
+        <!-- Dual crossfade videos for the home page -->
+        <video id="hero-bg-vid-1" class="hero-bg crossfade-vid active-vid" autoplay muted loop playsinline>
+            <source src="scubavideos/VideoEditor_DSCF3074.mp4" type="video/mp4">
+        </video>
+        <video id="hero-bg-vid-2" class="hero-bg crossfade-vid" autoplay muted loop playsinline></video>
+
         <div class="hero-content">
             <h1>Hello, i'm Romheir Pablo.</h1>
             <h2>I am a Cyber Security Student and this is my Portfolio. I am a <span id="typewriter"></span></h2>

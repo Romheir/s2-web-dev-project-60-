@@ -11,8 +11,8 @@
     --ocean-mid: #005f73;
     --music-deep: #0f0514; 
     --music-glow: #9d4edd; 
-    --badminton-deep: #141000; /* Dark Golden Bronze */
-    --badminton-glow: #ffc107; /* Golden Accent */
+    --badminton-deep: #141000; 
+    --badminton-glow: #ffc107; 
 }
 
 * {
@@ -66,17 +66,6 @@ body.in-badminton { background-color: var(--badminton-deep); }
 }
 
 .hero-bg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: -1;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-    transition: opacity 1s ease-in-out;
     filter: blur(15px) brightness(0.4);
 }
 
@@ -88,8 +77,34 @@ body.in-badminton { background-color: var(--badminton-deep); }
     z-index: -1;
 }
 
-.hero h1 { font-size: 4rem; letter-spacing: -2px; }
+.hero h1 { font-size: 4rem; letter-spacing: -2px; position: relative; z-index: 5; }
+.hero h2 { position: relative; z-index: 5; }
 #typewriter { color: var(--accent-color); font-weight: bold; border-right: 2px solid var(--accent-color); }
+
+/* --- CROSSFADE ENGINE --- */
+.crossfade-vid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out; 
+    z-index: 1;
+}
+
+.crossfade-vid.active-vid {
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Ensure blur is correctly applied to background layers */
+#scuba-blur-vid-1, #scuba-blur-vid-2,
+#music-blur-vid-1, #music-blur-vid-2,
+#badminton-blur-vid-1, #badminton-blur-vid-2 {
+    filter: blur(25px) brightness(0.4);
+}
 
 /* --- BENTO GRID CONTAINER --- */
 .container { 
@@ -154,7 +169,7 @@ body.in-badminton { background-color: var(--badminton-deep); }
 .instrument-box li { font-size: 0.95rem; opacity: 0.8; display: flex; justify-content: center; align-items: center; }
 .instrument-box li::before { content: "•"; color: var(--accent-color); margin-right: 8px; font-size: 1.2rem; }
 
-/* --- MASKING ZONES (SCUBA, MUSIC, BADMINTON) --- */
+/* --- MASKING ZONES --- */
 .scuba-zone, .music-zone, .badminton-zone {
     position: relative;
     height: 100vh;
@@ -174,18 +189,6 @@ body.in-badminton { background-color: var(--badminton-deep); }
     z-index: 1;
 }
 
-#scuba-blur-vid, #music-blur-vid, #badminton-blur-vid, 
-#scuba-clear-vid, #music-clear-vid, #badminton-clear-vid {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: opacity 0.8s ease; 
-}
-
-#scuba-blur-vid, #music-blur-vid, #badminton-blur-vid {
-    filter: blur(25px) brightness(0.4);
-}
-
 .scuba-mask-wrapper, .music-mask-wrapper, .badminton-mask-wrapper {
     position: relative;
     z-index: 2;
@@ -196,12 +199,6 @@ body.in-badminton { background-color: var(--badminton-deep); }
     justify-content: center;
     mix-blend-mode: screen; 
     transition: transform 0.2s ease-out;
-}
-
-#scuba-clear-vid, #music-clear-vid, #badminton-clear-vid {
-    position: absolute;
-    top: 0;
-    left: 0;
 }
 
 .ocean-header, .music-header, .badminton-header {
@@ -370,7 +367,7 @@ body.in-badminton { background-color: var(--badminton-deep); }
 @media (max-width: 768px) {
     .navbar { padding: 1rem 5%; }
     .nav-logo { font-size: 1.2rem; }
-    .nav-links { gap: 10px; font-size: 0.8rem; } /* Shrunk gap slightly to fit 4 links */
+    .nav-links { gap: 10px; font-size: 0.8rem; }
     
     .hero h1 { font-size: 2.5rem; }
     

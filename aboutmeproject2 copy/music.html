@@ -9,7 +9,6 @@
 </head>
 <body id="main-body" class="in-music">
 
-    <!-- UPDATED NAVIGATION BAR (Apply to all files) -->
     <nav class="navbar">
         <div class="nav-logo">Romheir Pablo</div>
         <ul class="nav-links">
@@ -22,15 +21,19 @@
 
     <section class="music-zone" id="music">
         <div class="music-bg-container">
-            <video id="music-blur-vid" autoplay muted loop playsinline>
+            <!-- Dual Blur Videos -->
+            <video id="music-blur-vid-1" class="crossfade-vid active-vid" autoplay muted loop playsinline>
                 <source src="musicvideos/VideoEditor_IMG_2123.mp4" type="video/mp4">
             </video>
+            <video id="music-blur-vid-2" class="crossfade-vid" autoplay muted loop playsinline></video>
         </div>
 
         <div class="music-mask-wrapper">
-            <video id="music-clear-vid" autoplay muted loop playsinline>
+            <!-- Dual Clear Videos -->
+            <video id="music-clear-vid-1" class="crossfade-vid active-vid" autoplay muted loop playsinline>
                 <source src="musicvideos/VideoEditor_IMG_2123.mp4" type="video/mp4">
             </video>
+            <video id="music-clear-vid-2" class="crossfade-vid" autoplay muted loop playsinline></video>
             <h2 class="music-header reveal">MULTI-INSTRUMENTALIST</h2>
         </div>
 

@@ -9,7 +9,6 @@
 </head>
 <body id="main-body" class="in-ocean">
 
-    <!-- UPDATED NAVIGATION BAR (Apply to all files) -->
     <nav class="navbar">
         <div class="nav-logo">Romheir Pablo</div>
         <ul class="nav-links">
@@ -22,15 +21,19 @@
 
     <section class="scuba-zone" id="scuba">
         <div class="scuba-bg-container">
-            <video id="scuba-blur-vid" autoplay muted loop playsinline>
+            <!-- Dual Blur Videos -->
+            <video id="scuba-blur-vid-1" class="crossfade-vid active-vid" autoplay muted loop playsinline>
                 <source src="scubavideos/VideoEditor_DSCF3074.mp4" type="video/mp4">
             </video>
+            <video id="scuba-blur-vid-2" class="crossfade-vid" autoplay muted loop playsinline></video>
         </div>
 
         <div class="scuba-mask-wrapper">
-            <video id="scuba-clear-vid" autoplay muted loop playsinline>
+            <!-- Dual Clear Videos -->
+            <video id="scuba-clear-vid-1" class="crossfade-vid active-vid" autoplay muted loop playsinline>
                 <source src="scubavideos/VideoEditor_DSCF3074.mp4" type="video/mp4">
             </video>
+            <video id="scuba-clear-vid-2" class="crossfade-vid" autoplay muted loop playsinline></video>
             <h2 class="ocean-header reveal">SCUBA DIVING</h2>
         </div>
 
