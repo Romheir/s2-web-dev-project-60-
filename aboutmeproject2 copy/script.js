@@ -145,11 +145,12 @@ const bBlurVid = document.getElementById('badminton-blur-vid');
 const bClearVid = document.getElementById('badminton-clear-vid');
 
 if (bBlurVid && bClearVid) {
+    // FIXED: These now perfectly match the files in your VS Code folder
     const badmintonSources = [
         'badmintonvideos/IMG_8233.mp4',
-        'badmintonvideos/IMG_8432.mp4',
-        'badmintonvideos/IMG_2941.mp4',
-        'badmintonvideos/IMG_8436.mp4'
+        'badmintonvideos/IMG_4253.mp4',
+        'badmintonvideos/IMG_4256.mp4',
+        'badmintonvideos/VideoEditor_IMG_8436 (1).mp4'
     ];
     let badmintonIdx = 1; 
 
