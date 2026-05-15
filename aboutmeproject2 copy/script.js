@@ -70,7 +70,7 @@ const initColorShift = () => {
     });
 };
 
-// --- 4. UNIVERSAL CINEMATIC CROSSFADE ENGINE ---
+// --- 4. UNIVERSAL CINEMATIC CROSSFADE ENGINE (VIDEOS) ---
 function setupCrossfade(sourcesArray, blurPrefix, clearPrefix = null) {
     const bVid1 = document.getElementById(`${blurPrefix}-1`);
     const bVid2 = document.getElementById(`${blurPrefix}-2`);
@@ -121,8 +121,57 @@ function setupCrossfade(sourcesArray, blurPrefix, clearPrefix = null) {
     }, 6000); 
 }
 
-// --- 5. INITIALIZE THE CROSSFADES FOR ALL PAGES ---
+// --- 5. IMAGE CROSSFADE ENGINE (WITH SPEED CONTROL) ---
+function setupImageCrossfade(sourcesArray, blurPrefix, clearPrefix = null, speed = 3000) {
+    const bImg1 = document.getElementById(`${blurPrefix}-1`);
+    const bImg2 = document.getElementById(`${blurPrefix}-2`);
+    
+    if (!bImg1 || !bImg2) return; 
+
+    let cImg1 = null, cImg2 = null;
+    if (clearPrefix) {
+        cImg1 = document.getElementById(`${clearPrefix}-1`);
+        cImg2 = document.getElementById(`${clearPrefix}-2`);
+    }
+
+    let currentIdx = 1; 
+    let activePlayer = 1; 
+
+    setInterval(() => {
+        const nextSource = sourcesArray[currentIdx];
+
+        const hiddenBlur = activePlayer === 1 ? bImg2 : bImg1;
+        const visibleBlur = activePlayer === 1 ? bImg1 : bImg2;
+
+        hiddenBlur.src = nextSource;
+
+        let hiddenClear = null, visibleClear = null;
+        if (clearPrefix && cImg1 && cImg2) {
+            hiddenClear = activePlayer === 1 ? cImg2 : cImg1;
+            visibleClear = activePlayer === 1 ? cImg1 : cImg2;
+            hiddenClear.src = nextSource;
+        }
+
+        setTimeout(() => {
+            visibleBlur.classList.remove('active-vid');
+            hiddenBlur.classList.add('active-vid');
+
+            if (clearPrefix && visibleClear && hiddenClear) {
+                visibleClear.classList.remove('active-vid');
+                hiddenClear.classList.add('active-vid');
+            }
+
+            activePlayer = activePlayer === 1 ? 2 : 1;
+            currentIdx = (currentIdx + 1) % sourcesArray.length;
+        }, 100); 
+
+    }, speed); 
+}
+
+
+// --- 6. INITIALIZE ALL SCRIPTS ON LOAD ---
 document.addEventListener('DOMContentLoaded', () => {
+    
     initColorShift(); 
     
     document.addEventListener('mousemove', (e) => {
@@ -139,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.observe(el);
     });
 
-    // 1. Home Page Hero Fade
+    // Init Video Crossfades for Video pages
     setupCrossfade([
         'scubavideos/VideoEditor_DSCF3074.mp4',
         'musicvideos/VideoEditor_20231012_201704.mp4',
@@ -147,7 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'scubavideos/VideoEditor_VID_20230525_155442_00_079.mp4'
     ], 'hero-bg-vid');
 
-    // 2. Scuba Page Fade
     setupCrossfade([
         'scubavideos/VideoEditor_DSCF3074.mp4',
         'scubavideos/VideoEditor_DSCF3075.mp4',
@@ -155,14 +203,12 @@ document.addEventListener('DOMContentLoaded', () => {
         'scubavideos/VideoEditor_DSCF3112.mp4'
     ], 'scuba-blur-vid', 'scuba-clear-vid');
 
-    // 3. Music Page Fade
     setupCrossfade([
         'musicvideos/VideoEditor_IMG_2123.mp4',
         'musicvideos/VideoEditor_20231012_201704.mp4',
         'musicvideos/IMG_2046 (online-video-cutter.com).mp4'
     ], 'music-blur-vid', 'music-clear-vid');
 
-    // 4. Badminton Page Fade
     setupCrossfade([
         'badmintonvideos/IMG_8233.mp4',
         'badmintonvideos/IMG_4253.mp4',
@@ -170,39 +216,16 @@ document.addEventListener('DOMContentLoaded', () => {
         'badmintonvideos/VideoEditor_IMG_8436 (1).mp4'
     ], 'badminton-blur-vid', 'badminton-clear-vid');
 
-    // 5. Cyber Page Fade (Replace with your actual hacker stock videos!)
-    setupCrossfade([
-        'cybervideos/code_scroll.mp4',
-        'cybervideos/server_room.mp4',
-        'cybervideos/dark_phoenix.mp4'
-    ], 'cyber-blur-vid', 'cyber-clear-vid');
-});
-// --- 6. AUTOMATIC CYBER PICTURE LOOP & CROSSFADE ---
-document.addEventListener('DOMContentLoaded', () => {
-    const galleryCards = document.querySelectorAll('.looping-gallery .video-card');
-    
-    if (!galleryCards.length) return;
+    // Init IMAGE Crossfade for Cyber page cover (FASTER: 3 seconds, No Clear Mask)
+    setupImageCrossfade([
+        'cyberpictures/WhatsApp Image 2026-05-12 at 10.01.41 PM.jpeg',
+        'cyberpictures/Screenshot 2026-05-15 163524.png',
+        'cyberpictures/Screenshot 2026-05-15 163558.png',
+        'cyberpictures/Screenshot 2026-05-15 163644.png'
+    ], 'cyber-hero-img', null, 3000);
 
-    let currentCardIndex = 0; 
 
-    function showNextCard() {
-        const currentActiveCard = document.querySelector('.active-loop-card');
-        if (currentActiveCard) {
-            currentActiveCard.classList.remove('active-loop-card');
-        }
-
-        currentCardIndex = (currentCardIndex + 1) % galleryCards.length;
-
-        const nextCardElement = galleryCards[currentCardIndex];
-        nextCardElement.classList.add('active-loop-card');
-    }
-
-    galleryCards[currentCardIndex].classList.add('active-loop-card');
-    setInterval(showNextCard, 7000); 
-});
-
-// --- 7. LIGHTBOX FUNCTIONALITY FOR IMAGES ---
-document.addEventListener('DOMContentLoaded', () => {
+    // --- 7. LIGHTBOX FUNCTIONALITY ---
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const closeBtn = document.querySelector('.close-lightbox');
