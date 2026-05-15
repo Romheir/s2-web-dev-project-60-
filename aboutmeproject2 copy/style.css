@@ -13,8 +13,8 @@
     --music-glow: #9d4edd; 
     --badminton-deep: #141000; 
     --badminton-glow: #ffc107; 
-    --cyber-deep: #020a05; /* Deep Terminal Black */
-    --cyber-glow: #00ff66; /* Neon Matrix Green */
+    --cyber-deep: #020a05; 
+    --cyber-glow: #00ff66; 
 }
 
 * {
@@ -275,13 +275,14 @@ body.in-cyber { background-color: var(--cyber-deep); }
 
 .video-card video { width: 100%; height: 100%; object-fit: cover; background-color: #000; }
 
-/* NEW: Support for static images in cards (Certificates/Scoreboards) */
+/* SUPPORT FOR STATIC IMAGES (SCOREBOARDS/CERTS) */
 .image-card img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    background-color: #111;
+    object-fit: contain; /* Prevents cropping */
+    background-color: var(--bg-color); /* Blends empty space */
     transition: transform 0.4s ease;
+    cursor: pointer; /* Shows it is clickable */
 }
 
 .video-overlay {
@@ -357,7 +358,6 @@ body.in-cyber { background-color: var(--cyber-deep); }
     color: var(--badminton-glow);
 }
 
-/* Cyber Glow */
 .cyber-card:hover {
     box-shadow: 0 0 40px rgba(0, 255, 102, 0.3);
     border-color: var(--cyber-glow);
@@ -369,7 +369,7 @@ body.in-cyber { background-color: var(--cyber-deep); }
 
 
 /* ========================================================
-   RESPONSIVE DESIGN (HOLIDAE REQUIREMENT) 
+   RESPONSIVE DESIGN 
    ======================================================== */
 
 @media (max-width: 1024px) {
@@ -387,7 +387,6 @@ body.in-cyber { background-color: var(--cyber-deep); }
 @media (max-width: 768px) {
     .navbar { padding: 1rem 5%; }
     .nav-logo { font-size: 1.2rem; }
-    /* Shrunk links to fit 5 items on mobile */
     .nav-links { gap: 8px; font-size: 0.75rem; }
     
     .hero h1 { font-size: 2.5rem; }
@@ -402,4 +401,56 @@ body.in-cyber { background-color: var(--cyber-deep); }
     .music-header { font-size: 2.5rem; letter-spacing: 1px; }
     .badminton-header { font-size: 2.2rem; letter-spacing: 1px; }
     .cyber-header { font-size: 2.5rem; letter-spacing: 2px; }
+}
+
+/* ========================================================
+   LIGHTBOX MODAL DESIGN 
+   ======================================================== */
+.lightbox-modal {
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(2, 10, 5, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.lightbox-modal.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90vh;
+    border-radius: 10px;
+    box-shadow: 0 0 40px rgba(0, 255, 102, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.lightbox-modal.show .lightbox-content {
+    transform: scale(1);
+}
+
+.close-lightbox {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: white;
+    font-size: 50px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-lightbox:hover {
+    color: var(--cyber-glow);
 }
