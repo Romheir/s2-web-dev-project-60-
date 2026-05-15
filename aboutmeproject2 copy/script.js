@@ -51,11 +51,14 @@ const initColorShift = () => {
     const scubaSection = document.getElementById('scuba');
     const musicSection = document.getElementById('music');
     const badmintonSection = document.getElementById('badminton');
+    const cyberSection = document.getElementById('cyber');
     
     window.addEventListener('scroll', () => {
         const scrollPosition = window.scrollY + (window.innerHeight * 0.7);
         
-        if (badmintonSection && scrollPosition >= badmintonSection.offsetTop) {
+        if (cyberSection && scrollPosition >= cyberSection.offsetTop) {
+            body.className = 'in-cyber';
+        } else if (badmintonSection && scrollPosition >= badmintonSection.offsetTop) {
             body.className = 'in-badminton';
         } else if (musicSection && scrollPosition >= musicSection.offsetTop) {
             body.className = 'in-music'; 
@@ -126,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const amount = 20; 
         const x = (e.clientX / window.innerWidth - 0.5) * amount;
         const y = (e.clientY / window.innerHeight - 0.5) * amount;
-        const masks = document.querySelectorAll('.scuba-mask-wrapper, .music-mask-wrapper, .badminton-mask-wrapper');
+        const masks = document.querySelectorAll('.scuba-mask-wrapper, .music-mask-wrapper, .badminton-mask-wrapper, .cyber-mask-wrapper');
         masks.forEach(mask => {
             mask.style.transform = `translate(${x}px, ${y}px)`;
         });
@@ -136,12 +139,12 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.observe(el);
     });
 
-    // 1. Home Page Hero Fade (NOW A PORTFOLIO MIX!)
+    // 1. Home Page Hero Fade
     setupCrossfade([
-        'scubavideos/VideoEditor_DSCF3074.mp4',             // 1. Scuba Diving
-        'musicvideos/VideoEditor_20231012_201704.mp4',      // 2. Music (Drums)
-        'badmintonvideos/IMG_8233.mp4',                     // 3. Badminton
-        'scubavideos/VideoEditor_VID_20230525_155442_00_079.mp4' // 4. Boracay Adventure
+        'scubavideos/VideoEditor_DSCF3074.mp4',
+        'musicvideos/VideoEditor_20231012_201704.mp4',
+        'badmintonvideos/IMG_8233.mp4',
+        'scubavideos/VideoEditor_VID_20230525_155442_00_079.mp4'
     ], 'hero-bg-vid');
 
     // 2. Scuba Page Fade
@@ -166,4 +169,11 @@ document.addEventListener('DOMContentLoaded', () => {
         'badmintonvideos/IMG_4256.mp4',
         'badmintonvideos/VideoEditor_IMG_8436 (1).mp4'
     ], 'badminton-blur-vid', 'badminton-clear-vid');
+
+    // 5. Cyber Page Fade (Replace with your actual hacker stock videos!)
+    setupCrossfade([
+        'cybervideos/code_scroll.mp4',
+        'cybervideos/server_room.mp4',
+        'cybervideos/dark_phoenix.mp4'
+    ], 'cyber-blur-vid', 'cyber-clear-vid');
 });
