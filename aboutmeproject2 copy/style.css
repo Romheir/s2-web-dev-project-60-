@@ -454,3 +454,44 @@ body.in-cyber { background-color: var(--cyber-deep); }
 .close-lightbox:hover {
     color: var(--cyber-glow);
 }
+/* ========================================================
+   CYBER PICTURE LOOP STYLING 
+   ======================================================== */
+.looping-gallery .video-card {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; 
+    transition: opacity 2s ease-in-out, transform 0.4s ease; 
+    cursor: pointer;
+    pointer-events: none; 
+}
+
+.looping-gallery .image-card img {
+    object-fit: contain; 
+    background-color: var(--cyber-deep); 
+}
+
+.looping-gallery .video-card.active-loop-card {
+    opacity: 1; 
+    z-index: 10; 
+    pointer-events: auto; 
+}
+
+.looping-gallery .video-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(0, 255, 102, 0.4);
+    border-color: var(--cyber-glow);
+}
+
+.looping-gallery .video-card .video-overlay {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+    opacity: 0; 
+}
+
+.looping-gallery .video-card:hover .video-overlay {
+    transform: translateY(0);
+    opacity: 1; 
+}

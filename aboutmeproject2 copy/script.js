@@ -177,3 +177,59 @@ document.addEventListener('DOMContentLoaded', () => {
         'cybervideos/dark_phoenix.mp4'
     ], 'cyber-blur-vid', 'cyber-clear-vid');
 });
+// --- 6. AUTOMATIC CYBER PICTURE LOOP & CROSSFADE ---
+document.addEventListener('DOMContentLoaded', () => {
+    const galleryCards = document.querySelectorAll('.looping-gallery .video-card');
+    
+    if (!galleryCards.length) return;
+
+    let currentCardIndex = 0; 
+
+    function showNextCard() {
+        const currentActiveCard = document.querySelector('.active-loop-card');
+        if (currentActiveCard) {
+            currentActiveCard.classList.remove('active-loop-card');
+        }
+
+        currentCardIndex = (currentCardIndex + 1) % galleryCards.length;
+
+        const nextCardElement = galleryCards[currentCardIndex];
+        nextCardElement.classList.add('active-loop-card');
+    }
+
+    galleryCards[currentCardIndex].classList.add('active-loop-card');
+    setInterval(showNextCard, 7000); 
+});
+
+// --- 7. LIGHTBOX FUNCTIONALITY FOR IMAGES ---
+document.addEventListener('DOMContentLoaded', () => {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = document.querySelector('.close-lightbox');
+    const clickableImages = document.querySelectorAll('.image-card img');
+
+    if (lightbox && lightboxImg) {
+        clickableImages.forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src; 
+                lightbox.classList.add('show');
+                document.body.style.overflow = 'hidden'; 
+            });
+        });
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('show');
+            document.body.style.overflow = 'auto'; 
+        };
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeLightbox);
+        }
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target !== lightboxImg) {
+                closeLightbox();
+            }
+        });
+    }
+});
