@@ -361,4 +361,95 @@ body.in-cyber { background-color: var(--cyber-deep); }
     color: var(--cyber-glow);
 }
 
-/* =================================================
+/* ========================================================
+   RESPONSIVE DESIGN 
+   ======================================================== */
+@media (max-width: 1024px) {
+    .ocean-header { font-size: 7rem; }
+    .music-header { font-size: 5rem; }
+    .badminton-header { font-size: 4.5rem; }
+    .cyber-header { font-size: 5.5rem; }
+    .section-title { font-size: 2.5rem; }
+    
+    .video-grid, .music-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar { padding: 1rem 5%; }
+    .nav-logo { font-size: 1.2rem; }
+    .nav-links { gap: 8px; font-size: 0.75rem; }
+    
+    .hero h1 { font-size: 2.5rem; }
+    
+    .bento-grid, .video-grid, .boracay-grid, .music-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .music-card:nth-child(even) { transform: translateY(0); }
+
+    .ocean-header { font-size: 3.5rem; letter-spacing: 2px; }
+    .music-header { font-size: 2.5rem; letter-spacing: 1px; }
+    .badminton-header { font-size: 2.2rem; letter-spacing: 1px; }
+    .cyber-header { font-size: 2.5rem; letter-spacing: 2px; }
+
+    /* Centering Fix for Gallery Headers on Mobile */
+    .gallery-headers, .gallery-title, .gallery-subtitle, .boracay-header {
+        text-align: center !important;
+        width: 100%;
+        display: block;
+    }
+}
+
+/* ========================================================
+   LIGHTBOX MODAL DESIGN 
+   ======================================================== */
+.lightbox-modal {
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(2, 10, 5, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.lightbox-modal.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90vh;
+    border-radius: 10px;
+    box-shadow: 0 0 40px rgba(0, 255, 102, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.lightbox-modal.show .lightbox-content {
+    transform: scale(1);
+}
+
+.close-lightbox {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: white;
+    font-size: 50px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-lightbox:hover {
+    color: var(--cyber-glow);
+}
