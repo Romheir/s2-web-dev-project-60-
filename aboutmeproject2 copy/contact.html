@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romheir Pablo | Contact</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body id="main-body" class="in-cyber"> <nav class="navbar">
+        <div class="nav-logo">Romheir Pablo</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="scuba.html">Scuba</a></li>
+            <li><a href="music.html">Music</a></li>
+            <li><a href="badminton.html">Badminton</a></li>
+            <li><a href="cyber.html">Cyber</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <section class="contact-section">
+        <div class="contact-container reveal">
+            <div class="contact-header">
+                <h2 class="section-title" style="margin-bottom: 10px; color: #00d4ff;">Initialize Uplink</h2>
+                <p style="opacity: 0.7; margin-bottom: 30px;">Send a secure transmission directly to my inbox.</p>
+            </div>
+            
+            <form id="contact-form" class="glass-form" onsubmit="handleFormSubmit(event)">
+                <div class="input-group">
+                    <input type="text" id="name" required placeholder=" ">
+                    <label for="name">Your Designation (Name)</label>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="email" required placeholder=" ">
+                    <label for="email">Return Address (Email)</label>
+                </div>
+                <div class="input-group">
+                    <textarea id="message" required placeholder=" " rows="5"></textarea>
+                    <label for="message">Transmission Payload (Message)</label>
+                </div>
+                <button type="submit" id="submit-btn" class="cyber-btn">
+                    <span id="btn-text">Transmit Data</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
